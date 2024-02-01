@@ -1,19 +1,20 @@
 const AbstractManager = require("./AbstractManager");
 
-class ItemManager extends AbstractManager {
+class RoleManager extends AbstractManager {
   constructor() {
     // Call the constructor of the parent class (AbstractManager)
     // and pass the table name "item" as configuration
-    super({ table: "item" });
+    super({ table: "role" });
   }
 
   // The C of CRUD - Create operation
 
-  async create(item) {
+  async create(role) {
+    const { id, name } = role;
     // Execute the SQL INSERT query to add a new item to the "item" table
     const [result] = await this.database.query(
-      `insert into ${this.table} (title) values (?)`,
-      [item.title]
+      `insert into ${this.table} (id, name) values (?, ?)`,
+      [id, name]
     );
 
     // Return the ID of the newly inserted item
@@ -43,17 +44,25 @@ class ItemManager extends AbstractManager {
 
   // The U of CRUD - Update operation
   // TODO: Implement the update operation to modify an existing item
+  async update(role, id) {
+    const result = await this.database.query(
+      `update ${this.table} set ? where id = ?`,
+      [role, id]
+    );
 
-  // async update(item) {
-  //   ...
-  // }
+    return result;
+  }
 
   // The D of CRUD - Delete operation
   // TODO: Implement the delete operation to remove an item by its ID
+  async delete(id) {
+    const result = await this.database.query(
+      `delete from ${this.table} where id = ?`,
+      [id]
+    );
 
-  // async delete(id) {
-  //   ...
-  // }
+    return result;
+  }
 }
 
-module.exports = ItemManager;
+module.exports = RoleManager;
