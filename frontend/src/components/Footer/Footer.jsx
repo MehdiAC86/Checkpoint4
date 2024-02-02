@@ -1,4 +1,4 @@
-import "./Footer.scss";
+import "./Footer.sass";
 
 function Footer() {
   const redirectToUrl = (url) => {
@@ -15,7 +15,7 @@ function Footer() {
         >
           <img
             className="gif-image"
-            src="github.gif"
+            src="GIF github.gif"
             alt="GIF Réseau Social 1"
           />
         </button>
@@ -26,7 +26,7 @@ function Footer() {
         >
           <img
             className="gif-image"
-            src="instagram.gif"
+            src="Gif Instagram.gif"
             alt="GIF Réseau Social 2"
           />
         </button>
@@ -41,7 +41,7 @@ function Footer() {
         >
           <img
             className="gif-image"
-            src="linkedin.gif"
+            src="GIF linkedin.gif"
             alt="GIF Réseau Social 3"
           />
         </button>

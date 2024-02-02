@@ -1,23 +1,26 @@
 const express = require("express");
 
 const router = express.Router();
-
-/* ************************************************************************* */
-// Define Your API Routes Here
-/* ************************************************************************* */
-
+const { verifyToken } = require("./services/jwt");
 // Import itemControllers module for handling item-related operations
-const itemControllers = require("./controllers/itemControllers");
+const roleControllers = require("./controllers/roleControllers");
 
-// Route to get a list of items
-router.get("/items", itemControllers.browse);
+router.get("/roles", roleControllers.browse);
+router.get("/roles/:id", roleControllers.read);
 
-// Route to get a specific item by ID
-router.get("/items/:id", itemControllers.read);
+const { hashPwd, verifyPwd } = require("./services/argon");
 
-// Route to add a new item
-router.post("/items", itemControllers.add);
+const userController = require("./controllers/userControllers");
 
-/* ************************************************************************* */
+router.post("/register", hashPwd, userController.createUser);
+router.post("login", verifyPwd, userController.login);
+
+router.use(verifyToken);
+
+router.get("/users", userController.browse);
+router.get("/users/:id", userController.read);
+router.post("./users", userController.add);
+
+router.delete("./logout", userController.logout);
 
 module.exports = router;
